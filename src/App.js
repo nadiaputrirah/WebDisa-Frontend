@@ -1,15 +1,15 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home/index";
-import Info from "./pages/Information/info";
+import DetailWisata from "./pages/Populer/detailWisata";
+// import Home from "./pages/Home";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/info" element={<Info />} />
+          <Route path="/" element={<DetailWisata />} />
+          {/* <Route path="/info" element={<Info />} /> */}
         </Routes>
       </Router>
     </div>

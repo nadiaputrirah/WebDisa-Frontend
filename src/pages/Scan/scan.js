@@ -1,13 +1,18 @@
 import React from "react";
+
 import Scan from "../../components/scan";
 import Navbars from "../../components/Navigasi/navbar";
 import Footer from "../../components/footer";
+import Scanner from "../../components/scanner";
 
 export default function PageScan() {
   return (
     <div>
       <Navbars />
       <Scan />
+      <div class=" w-full mx-auto max-w-screen-xl">
+        <Scanner />
+      </div>
       <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <a
           href="/"

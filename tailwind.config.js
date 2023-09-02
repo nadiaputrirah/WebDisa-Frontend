@@ -169,7 +169,7 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
       customGreen: "#439A97",
-      greentwo: "#2b928e",
+      greentwo: "#8CD2D0",
       darkGreen: "#014539",
       softGreen: "#DFEBEB",
     }),

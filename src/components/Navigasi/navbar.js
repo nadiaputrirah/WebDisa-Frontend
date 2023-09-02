@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import img from "../../assets/logodisa.svg";
+import logo from "../../assets/logodisa.svg";
 
 export default function Navbars() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function Navbars() {
       <nav class="fixed w-full z-20 top-0 left-0 bg-[#439A97]">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="/" class="flex items-center">
-            <img src={img} class="h-15 mr-3" alt="Flowbite Logo" />
+            <img src={logo} class="h-15 mr-3" alt="Flowbite Logo" />
           </a>
           <button
             data-collapse-toggle="navbar-default"
