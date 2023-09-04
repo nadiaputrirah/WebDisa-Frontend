@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import img from "../../assets/logodisa.svg";
 
 export default function Navbar({ shouldApplyScrollEffect }) {
-  // const redirect = useNavigate();
+  const redirect = useNavigate();
   const [navbarTransparent, setNavbarTransparent] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setNavbarTransparent(false);
-      } else {
-        setNavbarTransparent(true);
-      }
+      setNavbarTransparent(window.scrollY > 0 ? false : true);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -66,26 +62,22 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               <li>
                 <a
                   href="/"
-                  onClick={() => redirect("/")}
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Beranda
                 </a>
               </li>
               <li>
-                <h3
-                  onClick={() => redirect("/info")}
+                <a
+                  href="/info"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Informasi
-                </h3>
+                </a>
               </li>
               <li>
                 <a
-                  href="/"
-                  onClick={() =>
-                    redirect("/pages/Populer/populer", { replace: true })
-                  }
+                  href="/populer"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Destinasi
@@ -93,7 +85,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="#berbagi"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Berbagi
@@ -101,7 +93,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="#scan"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Scan QR
@@ -110,7 +102,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               <li>
                 {/* <redirect to="/" replace={true} /> */}
                 <a
-                  href="/"
+                  href="/login"
                   class="text-[#439A97] bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
                 >
                   Mulai

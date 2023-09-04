@@ -55,7 +55,7 @@ export default function Login() {
             <h6 className="w-full text-center mb-10 text-l font-medium text-gray-400">
               Belum punya akun?{" "}
               <span class="text-[#014539]">
-                <a href="/">Register</a>
+                <a href="/register">Register</a>
               </span>
             </h6>
           </div>
