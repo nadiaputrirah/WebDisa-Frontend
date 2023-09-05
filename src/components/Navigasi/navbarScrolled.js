@@ -106,39 +106,41 @@ export default function Navbar({ shouldApplyScrollEffect }) {
                   Scan QR
                 </a>
               </li>
-              <li>
-                {/* <redirect to="/" replace={true} /> */}
-                <a
-                  href="/login"
-                  class="text-[#439A97] bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
-                >
-                  Mulai
-                </a>
-              </li>
-
-              <li className="relative " onClick={() => setPopper(!popper)}>
-                <span
-                  // href="#berbagi"
-                  className="cursor-pointer block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  {name && `Hai ${name}`}
-                </span>
-                <div
-                  className={`${
-                    popper ? "inline-block" : "hidden"
-                  } absolute z-10 invisible transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 `}
-                >
-                  <div className="cursor-pointer px-3 py-2">
-                    <a>Dashboard</a>
-                  </div>
-                  <div
-                    className="cursor-pointer px-3 py-2"
-                    onClick={handleLogout}
+              {name ? (
+                <li className="relative " onClick={() => setPopper(!popper)}>
+                  <span
+                    // href="#berbagi"
+                    className="cursor-pointer block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
-                    <span>Logout</span>
+                    {name && `Hai ${name}`}
+                  </span>
+                  <div
+                    className={`${
+                      popper ? "inline-block" : "hidden"
+                    } absolute z-10 invisible transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 `}
+                  >
+                    <div className="cursor-pointer px-3 py-2">
+                      <a>Dashboard</a>
+                    </div>
+                    <div
+                      className="cursor-pointer px-3 py-2"
+                      onClick={handleLogout}
+                    >
+                      <span>Logout</span>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              ) : (
+                <li>
+                  {/* <redirect to="/" replace={true} /> */}
+                  <a
+                    href="/login"
+                    class="text-[#439A97] bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
+                  >
+                    Mulai
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
