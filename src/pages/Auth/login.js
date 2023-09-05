@@ -2,8 +2,47 @@ import React from "react";
 import imgauth from "../../assets/loginregist.svg";
 import Footer from "../../components/footer";
 import Navbars from "../../components/Navigasi/navbar";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email().required(),
+      password: Yup.string().required(),
+    }),
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}/auth/login`,
+          values
+        );
+        localStorage.setItem("token", response.data.data.token);
+        navigate("/home");
+      } catch (error) {
+        if (error.response) {
+          if (error.response.data.message) {
+            setFieldError("password", error.response.data.message);
+          } else {
+            setFieldError(
+              "password",
+              "Terjadi kesalahan saat mengirim permintaan."
+            );
+          }
+        } else {
+          setFieldError("password", "Tidak dapat terhubung ke server.");
+        }
+      }
+    },
+  });
+
   return (
     <div>
       <Navbars />
@@ -15,7 +54,7 @@ export default function Login() {
             <h2 className="mb-10 text-4xl font-bold text-[#014539]">
               Nikmati Petualangan Wisata Pelosok
             </h2>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div class="mb-6">
                 <label
                   htmlFor="email"
@@ -26,24 +65,41 @@ export default function Login() {
                 <input
                   type="email"
                   id="email"
-                  class="bg-[#DFEBEB] border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400"
-                  placeholder=""
-                  required
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.email && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
                 />
+                {formik.errors.email && (
+                  <small className="text-red-500">{formik.errors.email}</small>
+                )}
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
                   htmlFor="password"
-                  class="block mb-2 text-sm font-medium text-[#014539]"
+                  className="block mb-2 text-sm font-medium text-[#014539]"
                 >
                   Your password
                 </label>
                 <input
                   type="password"
                   id="password"
-                  class="bg-[#DFEBEB] border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400"
-                  required
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.email && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
                 />
+                {formik.errors.password && (
+                  <small className="text-red-500">
+                    {formik.errors.password}
+                  </small>
+                )}
               </div>
               <button
                 type="submit"

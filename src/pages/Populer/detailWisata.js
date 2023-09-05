@@ -24,7 +24,7 @@ export default function DetailWisata() {
               <span>50</span> orang sedang berkunjung di curug jenggala
             </p>
             <a
-              href="/"
+              href="/scan"
               className=" inline-flex justify-center px-4 py-2 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
             >
               Kunjungi Wisata

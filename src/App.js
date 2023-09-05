@@ -7,7 +7,11 @@ import Login from "./pages/Auth/login";
 import Info from "./pages/Information/info";
 import Populer from "./components/Populer/populer";
 import Register from "./pages/Auth/register";
-
+import DetailWisata from "./pages/Populer/detailWisata";
+import Scan from "./components/scan";
+import PageScan from "./pages/Scan/scan";
+import Visit from "./pages/Scan/visit";
+import OutVisit from "./pages/Scan/out";
 
 function App() {
   const location = useLocation();
@@ -20,11 +24,14 @@ function App() {
   }, [location, navigate]);
 
   return (
-
     <Routes>
       <Route path="/home/*" element={<Home />} />
       <Route path="/info/*" element={<Info />} />
       <Route path="/populer/*" element={<Populer />} />
+      <Route path="/populer/:code" element={<DetailWisata />} />
+      <Route path="/scan" element={<PageScan />} />
+      <Route path="/scan-out" element={<Visit />} />
+      <Route path="/out" element={<OutVisit />} />
       <Route path="/login/*" element={<Login />} />
       <Route path="/register/*" element={<Register />} />
     </Routes>

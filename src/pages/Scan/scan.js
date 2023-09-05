@@ -4,22 +4,63 @@ import Scan from "../../components/scan";
 import Navbars from "../../components/Navigasi/navbar";
 import Footer from "../../components/footer";
 import Scanner from "../../components/scanner";
+import { useNavigate, useParams } from "react-router-dom";
+import QrReader from "react-qr-scanner";
+import { useState } from "react";
+import axios from "axios";
 
 export default function PageScan() {
+  const param = useParams();
+  const navigate = useNavigate();
+  const [delay, setDelay] = useState(100);
+  const [result, setResult] = useState("No result");
+
+  const handleScan = (data) => {
+    if (data) {
+      console.log("QR Code data:", data);
+      setResult(data);
+    }
+  };
+
+  const handleError = (err) => {
+    console.error(err);
+  };
+
+  const handleClickScan = async () => {
+    await axios.post(
+      `${process.env.REACT_APP_API}/destinasi/visit`,
+      { status: "in", code: result },
+      { headers: { Authorization: localStorage.getItem("token") } }
+    );
+    navigate("/scan-out");
+  };
+  const previewStyle = {
+    height: 400,
+    width: 400,
+  };
   return (
     <div>
       <Navbars />
       <Scan />
-      <div class=" w-full mx-auto max-w-screen-xl">
-        <Scanner />
+      <div class=" w-full mx-auto max-w-screen-xl flex justify-center items-center">
+        <QrReader
+          delay={delay}
+          style={previewStyle}
+          onError={handleError}
+          onScan={handleScan}
+        />
       </div>
-      <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <a
-          href="/"
+      <p className="text-center text-[#439A97] mt-10 text-lg">
+        Hasil Scan : {result}
+      </p>
+      <div class="py-2 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <button
+          disabled={result == "No result"}
           className="mx-auto w-full inline-flex justify-center px-4 py-4 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
+          onClick={handleClickScan}
         >
           Scan Sekarang
-        </a>
+        </button>
       </div>
 
       <Footer />

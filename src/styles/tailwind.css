@@ -1450,6 +1450,11 @@ input[type="range"]::-ms-fill-lower {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(240 82 82 / var(--tw-border-opacity));
+}
+
 .bg-\[\#439A97\] {
   --tw-bg-opacity: 1;
   background-color: rgb(67 154 151 / var(--tw-bg-opacity));
@@ -1757,6 +1762,11 @@ input[type="range"]::-ms-fill-lower {
 .text-gray-900 {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
 .text-white {
