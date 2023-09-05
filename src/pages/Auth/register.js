@@ -135,9 +135,9 @@ export default function Register() {
               </button>
             </form>
             <h6 className="w-full text-center mb-10 text-l font-medium text-gray-400">
-              Belum punya akun?{" "}
+              Sudah punya akun?
               <span class="text-[#014539]">
-                <a href="/">Login</a>
+                <a href="/login"> Login</a>
               </span>
             </h6>
           </div>

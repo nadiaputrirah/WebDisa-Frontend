@@ -1,6 +1,6 @@
 import React from "react";
-import Navigasi from "../../components/navigasi";
 import Footer from "../../components/footer";
+import Navbar from "../../components/Navigasi/navbarScrolled";
 import BannerInfo from "../../components/Information/banner";
 
 import imgInfoDetail from "../../assets/detailinfo.png";
@@ -9,7 +9,7 @@ import InfoDetail from "../../assets/detaintwo.png";
 export default function DetailInfo() {
   return (
     <div>
-      <Navigasi />
+      <Navbar />
       <BannerInfo />
       <section class="bg-white mt-36">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">

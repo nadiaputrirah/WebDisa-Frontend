@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../../components/DashboardUser/sidebar";
 
-export default function Profile() {
+export default function ProfileUser() {
   return (
     <div>
       <Sidebar />

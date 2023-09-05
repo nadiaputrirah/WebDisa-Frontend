@@ -92,7 +92,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               </li>
               <li>
                 <a
-                  href="#berbagi"
+                  href="/berbagi"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Berbagi
@@ -100,7 +100,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
               </li>
               <li>
                 <a
-                  href="#scan"
+                  href="/scan"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Scan QR
