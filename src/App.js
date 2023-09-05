@@ -1,4 +1,10 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useEffect } from "react";
 import "./App.css";
 
@@ -28,9 +34,9 @@ function App() {
       <Route path="/home/*" element={<Home />} />
       <Route path="/info/*" element={<Info />} />
       <Route path="/populer/*" element={<Populer />} />
-      <Route path="/populer/:code" element={<DetailWisata />} />
+      <Route path="/populer/:id" element={<DetailWisata />} />
       <Route path="/scan" element={<PageScan />} />
-      <Route path="/scan-out" element={<Visit />} />
+      <Route path="/scan-out/:id" element={<Visit />} />
       <Route path="/out" element={<OutVisit />} />
       <Route path="/login/*" element={<Login />} />
       <Route path="/register/*" element={<Register />} />

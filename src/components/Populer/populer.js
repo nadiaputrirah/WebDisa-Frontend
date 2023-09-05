@@ -6,15 +6,14 @@ import imgpopuler from "../../assets/imgpopuler.png";
 export default function Populer() {
   const [data, setData] = useState([]);
   const getData = async () => {
-    const cuy = await axios.get(`${process.env.REACT_APP_API}/destinasi`, {
+    const result = await axios.get(`${process.env.REACT_APP_API}/destinasi`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
-    setData(cuy.data.data.docs);
+    setData(result.data.data.docs);
   };
   useEffect(() => {
     getData();
   }, []);
-  console.log({ data });
   return (
     <section class="bg-[#439A97] mb-20">
       <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
@@ -37,7 +36,7 @@ export default function Populer() {
                 </a>
                 <div class="p-5">
                   <h4 class="mb-6 text-3xl font-bold tracking-tight text-[#014539]">
-                    Curug Jenggala
+                    {val?.name}
                   </h4>
                   <div className="flex items-center mb-6">
                     <svg
@@ -58,11 +57,11 @@ export default function Populer() {
                       </g>
                     </svg>
                     <span class="mb-6 ml-2 pt-6 font-normal text-gray-500">
-                      Baturaden, Purwokerto, Indonesia
+                      {val?.address}
                     </span>
                   </div>
                   <a
-                    href={`/populer/${val.code}`}
+                    href={`/populer/${val._id}`}
                     className="w-full inline-flex justify-center px-4 py-2 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
                   >
                     Lihat Detail

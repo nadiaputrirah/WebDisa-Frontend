@@ -1,7 +1,7 @@
 import React from "react";
 import bannerdestinasi from "../../assets/bannerDestinasi.png";
 
-export default function BannerDestinasi() {
+export default function BannerDestinasi({ name }) {
   return (
     <div>
       <section
@@ -10,7 +10,7 @@ export default function BannerDestinasi() {
       >
         <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
           <h1 className="mb-8 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
-            Pariwisata Curug Jenggala
+            Pariwisata {name || "Curug Jenggala"}
           </h1>
           <p className="mb-15 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
             Jelajahi keajaiban alam yang memukau dengan menikmati keindahan

@@ -16,9 +16,10 @@ export default function PageScan() {
   const [result, setResult] = useState("No result");
 
   const handleScan = (data) => {
+    // console.log(data);
     if (data) {
-      console.log("QR Code data:", data);
-      setResult(data);
+      console.log("QR Code data:", data.text);
+      setResult(data.text);
     }
   };
 
@@ -27,12 +28,12 @@ export default function PageScan() {
   };
 
   const handleClickScan = async () => {
-    await axios.post(
+    const scan = await axios.post(
       `${process.env.REACT_APP_API}/destinasi/visit`,
       { status: "in", code: result },
       { headers: { Authorization: localStorage.getItem("token") } }
     );
-    navigate("/scan-out");
+    navigate(`/scan-out/${scan.data.data.id}`);
   };
   const previewStyle = {
     height: 400,

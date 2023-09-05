@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer";
 
 import Navbar from "../../components/Navigasi/navbarScrolled";
 import indikator from "../../assets/indikatorPadat.png";
 import BannerDestinasi from "../../components/Populer/banner";
 import MapComponent from "../../components/Populer/map";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function DetailWisata() {
+  const [data, setData] = useState();
+  const { id } = useParams();
+
+  const getData = async () => {
+    const cuy = await axios.get(
+      `${process.env.REACT_APP_API}/destinasi/${id}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    setData(cuy.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <Navbar />
-      <BannerDestinasi />
+      <BannerDestinasi name={data?.name} />
       <section class="bg-white mt-32">
         <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
           <div className="mt-4 md:mt-0">
@@ -18,10 +38,11 @@ export default function DetailWisata() {
               Indikator Kepadatan Pariwisata
             </h2>
             <h2 className="mb-6 text-4xl font-bold text-[#014539]">
-              Saat ini Curug Jenggala sedang <span>Ramai</span>
+              Saat ini {data?.name} sedang <span>Ramai</span>
             </h2>
             <p className="mb-6 text-xl font-medium text-[#439A97]">
-              <span>50</span> orang sedang berkunjung di curug jenggala
+              <span>{data?.visitor || 0}</span> orang sedang berkunjung di{" "}
+              {data?.name}
             </p>
             <a
               href="/scan"

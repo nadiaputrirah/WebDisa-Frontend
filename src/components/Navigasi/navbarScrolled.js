@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/logodisa.svg";
+import { usePopper } from "react-popper";
 
 export default function Navbar({ shouldApplyScrollEffect }) {
-  const redirect = useNavigate();
   const [navbarTransparent, setNavbarTransparent] = useState(true);
+  const [popper, setPopper] = useState(false);
+  const name = localStorage?.getItem("username");
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    window.location.reload();
+  };
   useEffect(() => {
     const handleScroll = () => {
       setNavbarTransparent(window.scrollY > 0 ? false : true);
@@ -107,6 +114,30 @@ export default function Navbar({ shouldApplyScrollEffect }) {
                 >
                   Mulai
                 </a>
+              </li>
+
+              <li className="relative " onClick={() => setPopper(!popper)}>
+                <span
+                  // href="#berbagi"
+                  className="cursor-pointer block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  {name && `Hai ${name}`}
+                </span>
+                <div
+                  className={`${
+                    popper ? "inline-block" : "hidden"
+                  } absolute z-10 invisible transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 `}
+                >
+                  <div className="cursor-pointer px-3 py-2">
+                    <a>Dashboard</a>
+                  </div>
+                  <div
+                    className="cursor-pointer px-3 py-2"
+                    onClick={handleLogout}
+                  >
+                    <span>Logout</span>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
