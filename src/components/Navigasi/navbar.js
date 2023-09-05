@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import logo from "../../assets/logodisa.svg";
 
 export default function Navbars() {
-  const navigate = useNavigate();
-
   return (
     <div>
       {/* navbar */}
@@ -42,7 +40,6 @@ export default function Navbars() {
               <li>
                 <a
                   href="/"
-                  onClick={() => navigate("../pages/Home/index")}
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Beranda
@@ -50,8 +47,7 @@ export default function Navbars() {
               </li>
               <li>
                 <a
-                  href="/"
-                  onClick={() => navigate("../pages/Information/info")}
+                  href="/info"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Informasi
@@ -59,10 +55,7 @@ export default function Navbars() {
               </li>
               <li>
                 <a
-                  href="/"
-                  onClick={() =>
-                    navigate("/pages/Populer/populer", { replace: true })
-                  }
+                  href="/populer"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Destinasi
@@ -70,7 +63,7 @@ export default function Navbars() {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="/berbagi"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Berbagi
@@ -78,16 +71,16 @@ export default function Navbars() {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="/scan"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Scan QR
                 </a>
               </li>
               <li>
-                {/* <Navigate to="/" replace={true} /> */}
+                {/* <redirect to="/" replace={true} /> */}
                 <a
-                  href="/"
+                  href="/login"
                   class="text-[#439A97] bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
                 >
                   Mulai

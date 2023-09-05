@@ -1,7 +1,7 @@
 import React from "react";
-import Sidebar from "../../components/DashboardUser/sidebar";
+import Sidebar from "../../components/DashboardAdmin/sidebar";
 
-export default function WisataUser() {
+export default function WisataAdmin() {
   return (
     <div>
       <Sidebar />
@@ -11,10 +11,10 @@ export default function WisataUser() {
           <div class="py-8 px-4 max-w-screen-xl sm:py-16 lg:px-6">
             <div class="w-full space-y-10 md:gap-12 md:space-y-0">
               <h2 class="mb-4 text-3xl mt-10 font-bold text-[#014539]">
-                Wisata Saya
+                Data Wisata
               </h2>
               <p class=" text-[#014539] font-normal">
-                Melihat kembali wisata yanf pernah Anda upload
+                Kelola seluruh wisata Disa
               </p>
             </div>
           </div>
@@ -33,9 +33,6 @@ export default function WisataUser() {
                   </th>
                   <th scope="col" class="px-6 py-3">
                     Gambar
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Status
                   </th>
                   <th scope="col" class="px-6 py-3">
                     Action
@@ -62,43 +59,21 @@ export default function WisataUser() {
                     tengah memiliki arus yang paling deras.
                   </td>
                   <td class="px-4 py-4">$2999</td>
-                  <td class="px-4 py-4">Aktif</td>
                   <td class="px-4 py-4">
                     <a
                       href="/"
-                      class="font-medium text-[#014539] hover:underline"
+                      class="font-medium text-[#014539] hover:underline mr-4"
                     >
                       Edit
                     </a>
-                  </td>
-                </tr>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Curug jenggala
-                  </th>
-                  <td class="px-4 py-4">
-                    Jl. Pangeran Limboro, Dusun III Kalipagu, Ketenger, Kec.
-                    Baturaden, Kabupaten Banyumas, Jawa Tengah 53152
-                  </td>
-                  <td class="px-4 py-4">
-                    Curug Jenggala adalah air terjun yang berlokasi di Ketenger,
-                    Baturaden, Banyumas. Air terjun ini memiliki ketinggian 30
-                    meter dari permukaan tanah. Curug ini mempunyai tiga air
-                    terjun yang tingginya sejajar, dengan air terjun yang di
-                    tengah memiliki arus yang paling deras.
-                  </td>
-                  <td class="px-4 py-4">$2999</td>
-                  <td class="px-4 py-4">Aktif</td>
-                  <td class="px-4 py-4">
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Edit
-                    </a>
+                    <span>
+                      <a
+                        href="/"
+                        class="font-medium text-[#014539] hover:underline"
+                      >
+                        Hapus
+                      </a>
+                    </span>
                   </td>
                 </tr>
               </tbody>
