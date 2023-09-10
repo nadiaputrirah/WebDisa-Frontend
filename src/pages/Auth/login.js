@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import imgauth from "../../assets/loginregist.svg";
 import Footer from "../../components/footer";
 import Navbars from "../../components/Navigasi/navbar";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
@@ -24,8 +24,10 @@ export default function Login() {
           `${process.env.REACT_APP_API}/auth/login`,
           values
         );
-        localStorage.setItem("token", response.data.data.token);
-        localStorage.setItem("username", response.data.data.fullName);
+        localStorage.setItem("token", response?.data?.data?.token);
+        localStorage.setItem("username", response?.data?.data?.fullName);
+        localStorage.setItem("id", response?.data?.data?._id);
+        localStorage.setItem("role", response?.data?.data?.role);
         navigate("/home");
       } catch (error) {
         if (error.response) {
@@ -44,6 +46,11 @@ export default function Login() {
     },
   });
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, []);
   return (
     <div>
       <Navbars />

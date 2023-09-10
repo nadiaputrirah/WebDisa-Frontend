@@ -8,16 +8,16 @@ import MapComponent from "../../components/Populer/map";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import gallery1 from "../../assets/galleryJenggala/img1.svg";
-import gallery2 from "../../assets/galleryJenggala/img2.svg";
-import gallery3 from "../../assets/galleryJenggala/img3.svg";
-import gallery4 from "../../assets/galleryJenggala/img4.svg";
-import gallery5 from "../../assets/galleryJenggala/img5.svg";
-import gallery6 from "../../assets/galleryJenggala/img6.svg";
-import gallery7 from "../../assets/galleryJenggala/img7.svg";
-import gallery8 from "../../assets/galleryJenggala/img8.svg";
-import gallery9 from "../../assets/galleryJenggala/img9.svg";
-import gallery10 from "../../assets/galleryJenggala/img10.svg";
+// import gallery1 from "../../assets/galleryJenggala/img1.svg";
+// import gallery2 from "../../assets/galleryJenggala/img2.svg";
+// import gallery3 from "../../assets/galleryJenggala/img3.svg";
+// import gallery4 from "../../assets/galleryJenggala/img4.svg";
+// import gallery5 from "../../assets/galleryJenggala/img5.svg";
+// import gallery6 from "../../assets/galleryJenggala/img6.svg";
+// import gallery7 from "../../assets/galleryJenggala/img7.svg";
+// import gallery8 from "../../assets/galleryJenggala/img8.svg";
+// import gallery9 from "../../assets/galleryJenggala/img9.svg";
+// import gallery10 from "../../assets/galleryJenggala/img10.svg";
 
 export default function DetailWisata() {
   const [data, setData] = useState();
@@ -38,10 +38,14 @@ export default function DetailWisata() {
   useEffect(() => {
     getData();
   }, []);
+  console.log({ data });
   return (
     <div>
       <Navbar />
-      <BannerDestinasi name={data?.name} />
+      <BannerDestinasi
+        name={data?.name}
+        image_url={`${process.env.REACT_APP_IMAGE_URL}/${data?.image_url}`}
+      />
       <section class="bg-white mt-32">
         <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
           <div className="mt-4 md:mt-0">
@@ -77,14 +81,13 @@ export default function DetailWisata() {
 
           <div className="mt-4 md:mt-0">
             <h2 className="mb-6 text-3xl font-medium text-[#439A97]">
-              Lokasi Pariwisata Curug Jenggala
+              Lokasi Pariwisata {data?.name}
             </h2>
             <h2 className="mb-6 text-md font-normal text-[#014539]">
-              Jl. Pangeran Limboro, Dusun III Kalipagu, Ketenger, Kec.
-              Baturaden, Kabupaten Banyumas, Jawa Tengah 53152
+              {data?.address}
             </h2>
             <a
-              href="/"
+              href={`https://www.google.com/maps?q=${data?.geolocation?.[0]},${data?.geolocation?.[1]}`}
               className=" inline-flex justify-center px-4 py-2 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
             >
               Lihat Rute
@@ -93,7 +96,7 @@ export default function DetailWisata() {
         </div>
       </section>
 
-      <section class="bg-white">
+      {/* <section class="bg-white">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div class="w-full mb-8 lg:mb-10 text-center">
             <h2 class="mb-10 text-4xl font-medium text-[#439A97] ">
@@ -102,32 +105,8 @@ export default function DetailWisata() {
           </div>
           <div class="w-full mt-10">
             <h3 class="mb-10 text-[#014539] text-2xl font-bold">Deskripsi</h3>
-            <p class="w-full mb-5">
-              Curug Jenggala adalah air terjun yang berlokasi di Ketenger,
-              Baturaden, Banyumas. Air terjun ini memiliki ketinggian 30 meter
-              dari permukaan tanah. Curug ini mempunyai tiga air terjun yang
-              tingginya sejajar, dengan air terjun yang di tengah memiliki arus
-              yang paling deras.
-            </p>
-            <p class="w-full mb-5">
-              Selain keindahan alamnya, Curug Jenggala juga menawarkan
-              lingkungan yang sejuk dan hijau. Dikelilingi oleh pepohonan rimbun
-              dan vegetasi yang subur, tempat ini cocok untuk bersantai sambil
-              menikmati udara segar alam.
-            </p>
-            <p class="w-full mb-5">
-              Tak hanya menjadi destinasi wisata alam, Curug Jenggala juga
-              menawarkan berbagai kegiatan menarik seperti trekking dan hiking.
-              Pengunjung dapat mengeksplorasi area sekitar, menikmati
-              pemandangan alam yang menakjubkan, dan mengambil foto-foto yang
-              memukau.
-            </p>
-            <p class="w-full mb-5">
-              Jadi, jika Anda mencari pengalaman alam yang tak terlupakan,
-              jangan lewatkan kesempatan untuk mengunjungi Curug Jenggala.
-              Temukan keindahan alam yang memukau dan rasakan kedamaian yang
-              disuguhkan oleh air terjun ini.
-            </p>
+            <p class="w-full mb-5">{data?.description}</p>
+
             <h3 class="mb-10 text-[#014539] text-2xl font-bold">
               Galeri Jenggala
             </h3>
@@ -261,7 +240,7 @@ export default function DetailWisata() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <Footer />
     </div>
   );

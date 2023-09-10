@@ -52,7 +52,7 @@ function App() {
       <Route path="/scan-out/:id" element={<Visit />} />
 
       <Route path="/scan" element={<PageScan />} />
-      <Route path="/out" element={<OutVisit />} />
+      <Route path="/out/:id" element={<OutVisit />} />
       <Route path="/populer/*" element={<Populers />} />
       <Route path="/berbagi/*" element={<PageBerbagi />} />
       <Route path="/scan/*" element={<PageScan />} />

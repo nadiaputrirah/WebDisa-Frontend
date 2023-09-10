@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/DashboardUser/sidebar";
+import axios from "axios";
+import DataTable from "../DashboardAdmin/DataTable";
 
 export default function KunjunganWisata() {
+  const [data, setData] = useState();
+
+  const getData = async () => {
+    const result = await axios.get(
+      `${process.env.REACT_APP_API}/history?id=${localStorage.getItem("id")}`
+    );
+    setData(result.data.data.docs);
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Nama Wisata",
+        accessor: (row) => {
+          return <>{row?.destinasi?.name}</>;
+        },
+      },
+      {
+        Header: "Lokasi",
+        accessor: (row) => {
+          return <>{row?.destinasi?.address}</>;
+        },
+      },
+      {
+        Header: "Tanggal",
+        accessor: (row) => {
+          const date = new Date(row?.createdAt);
+          const tanggalTerformat = date.toLocaleDateString("id-ID", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          return <>{tanggalTerformat}</>;
+        },
+      },
+    ],
+    []
+  );
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <Sidebar />
@@ -19,35 +63,7 @@ export default function KunjunganWisata() {
               </p>
             </div>
           </div>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-white uppercase bg-[#439A97]">
-                <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Nama Wisata
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Lokasi
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Keterangan
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Curug jenggala
-                  </th>
-                  <td class="px-4 py-4">Baturaden</td>
-                  <td class="px-4 py-4">31, Agustus 2023</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <DataTable data={data || []} columns={columns} />
         </div>
       </div>
     </div>

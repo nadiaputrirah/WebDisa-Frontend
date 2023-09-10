@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import imgauth from "../../assets/loginregist.svg";
 import Footer from "../../components/footer";
 import Navbars from "../../components/Navigasi/navbar";
@@ -26,7 +26,12 @@ export default function Register() {
       navigate("/login");
     },
   });
-  console.log(formik.errors);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, []);
+
   return (
     <div>
       <Navbars />

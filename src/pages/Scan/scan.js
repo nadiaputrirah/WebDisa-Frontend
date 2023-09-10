@@ -33,6 +33,11 @@ export default function PageScan() {
       { status: "in", code: result },
       { headers: { Authorization: localStorage.getItem("token") } }
     );
+    await axios.post(
+      `${process.env.REACT_APP_API}/history`,
+      { user: localStorage.getItem("id"), destinasi: scan.data.data.id },
+      { headers: { Authorization: localStorage.getItem("token") } }
+    );
     navigate(`/scan-out/${scan.data.data.id}`);
   };
   const previewStyle = {
@@ -56,7 +61,7 @@ export default function PageScan() {
       </p>
       <div class="py-2 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <button
-          disabled={result == "No result"}
+          disabled={result == "No result" || !localStorage.getItem("token")}
           className="mx-auto w-full inline-flex justify-center px-4 py-4 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
           onClick={handleClickScan}
         >

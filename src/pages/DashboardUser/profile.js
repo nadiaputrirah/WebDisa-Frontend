@@ -1,7 +1,46 @@
 import React from "react";
 import Sidebar from "../../components/DashboardUser/sidebar";
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function ProfileUser() {
+  const [data, setData] = useState();
+
+  const getData = async () => {
+    const result = await axios.get(
+      `${process.env.REACT_APP_API}/user/${localStorage.getItem("id")}`
+    );
+    setData(result.data.data);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: data?.email || "",
+      fullName: data?.fullName || "",
+      phone: data?.phone || "",
+      password: "",
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object().shape({
+      fullName: Yup.string().required(),
+      password: Yup.string().required(),
+      email: Yup.string().email().required(),
+      phone: Yup.string().required(),
+    }),
+    onSubmit: async (val) => {
+      await axios.put(
+        `${process.env.REACT_APP_API}/user/${localStorage.getItem("id")}`,
+        val
+      );
+      window.location.reload();
+    },
+  });
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <Sidebar />
@@ -18,111 +57,94 @@ export default function ProfileUser() {
               </p>
             </div>
           </div>
-          <form>
-            <div class="relative z-0 w-full mb-6 group">
+          <form onSubmit={formik.handleSubmit}>
+            <div class="mb-6">
+              <label
+                htmlFor="name"
+                class="block mb-2 text-sm font-medium text-[#014539]"
+              >
+                Nama
+              </label>
+              <input
+                id="fullName"
+                name="fullName"
+                value={formik.values.fullName}
+                onChange={formik.handleChange}
+                className={`bg-[#DFEBEB] ${
+                  formik.errors.fullName && "border-red-500"
+                } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                // required
+              />
+              {formik.errors.fullName && (
+                <small className="text-red-500">{formik.errors.fullName}</small>
+              )}
+            </div>
+            <div class="mb-6">
+              <label
+                htmlFor="email"
+                class="block mb-2 text-sm font-medium text-[#014539]"
+              >
+                Alamat email
+              </label>
               <input
                 type="email"
-                name="floating_email"
-                id="floating_email"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                className={`bg-[#DFEBEB] ${
+                  formik.errors.email && "border-red-500"
+                } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                // required
               />
-              <label
-                for="floating_email"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Email address
-              </label>
+              {formik.errors.email && (
+                <small className="text-red-500">{formik.errors.email}</small>
+              )}
             </div>
-            <div class="relative z-0 w-full mb-6 group">
-              <input
-                type="password"
-                name="floating_password"
-                id="floating_password"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
+            <div class="mb-6">
               <label
-                for="floating_password"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                htmlFor="password"
+                class="block mb-2 text-sm font-medium text-[#014539]"
+              >
+                No. Handphone
+              </label>
+              <input
+                type="number"
+                name="phone"
+                value={formik.values.phone}
+                onChange={formik.handleChange}
+                className={`bg-[#DFEBEB] ${
+                  formik.errors.phone && "border-red-500"
+                } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                // required
+              />
+              {formik.errors.phone && (
+                <small className="text-red-500">{formik.errors.phone}</small>
+              )}
+            </div>
+            <div class="mb-6">
+              <label
+                htmlFor="password"
+                class="block mb-2 text-sm font-medium text-[#014539]"
               >
                 Password
               </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group">
               <input
                 type="password"
-                name="repeat_password"
-                id="floating_repeat_password"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                className={`bg-[#DFEBEB] ${
+                  formik.errors.password && "border-red-500"
+                } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                // required
               />
-              <label
-                for="floating_repeat_password"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Confirm password
-              </label>
-            </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  name="floating_first_name"
-                  id="floating_first_name"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-non dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_first_name"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  First name
-                </label>
-              </div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="text"
-                  name="floating_last_name"
-                  id="floating_last_name"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_last_name"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Last name
-                </label>
-              </div>
-            </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  type="tel"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                  name="floating_phone"
-                  id="floating_phone"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_phone"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Phone number (088239561876)
-                </label>
-              </div>
+              {formik.errors.password && (
+                <small className="text-red-500">{formik.errors.password}</small>
+              )}
             </div>
             <button
               type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="text-white bg-[#439A97] hover:bg-[#014539] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-10"
             >
               Submit
             </button>

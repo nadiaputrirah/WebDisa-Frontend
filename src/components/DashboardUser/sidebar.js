@@ -1,8 +1,24 @@
 import React from "react";
 import logo from "../../assets/logodisa.svg";
 import profile from "../../assets/profile.svg";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("role") != "user") {
+      navigate("/home");
+    }
+  }, []);
   return (
     <div>
       <nav class="fixed top-0 z-50 w-full bg-[#439A97] border-b border-gray-200">
@@ -43,7 +59,9 @@ export default function Sidebar() {
                     data-dropdown-toggle="dropdown-user"
                   >
                     <span class="sr-only">Open user menu</span>
-                    <h2 class="mr-6 text-white">Nita Fitrotul</h2>
+                    <h2 class="mr-6 text-white">
+                      {localStorage.getItem("username")}
+                    </h2>
                     {/* <img
                       src={profile}
                       class="w-12 h-12 rounded-full"
@@ -206,7 +224,12 @@ export default function Sidebar() {
                 >
                   <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
                 </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
+                <span
+                  class="flex-1 ml-3 whitespace-nowrap"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </span>
               </a>
             </li>
           </ul>

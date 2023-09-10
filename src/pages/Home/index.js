@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Banner from "../../components/banner";
 import Features from "../../components/features";
 import Scan from "../../components/scan";
@@ -10,15 +10,16 @@ import Footer from "../../components/footer";
 import Navbar from "../../components/Navigasi/navbarScrolled";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
   return (
     <div>
       <Navbar />
-      <Banner />
+      <Banner setSearch={setSearch} />
       <Features />
       <Scan />
       <Informasi />
       <Berbagi />
-      <Populer />
+      <Populer search={search} />
       <Review />
       <Footer />
     </div>

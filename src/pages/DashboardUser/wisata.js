@@ -1,7 +1,53 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/DashboardUser/sidebar";
+import DataTable from "../DashboardAdmin/DataTable";
+import axios from "axios";
 
 export default function WisataUser() {
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const result = await axios.get(
+      `${process.env.REACT_APP_API}/destinasi?id=${localStorage.getItem("id")}`
+    );
+    setData(result.data.data);
+  };
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Nama Wisata",
+        accessor: "name",
+      },
+      {
+        Header: "Alamat",
+        accessor: "address",
+      },
+      {
+        Header: "Deskripsi",
+        accessor: "description",
+      },
+      {
+        Header: "Photo",
+        accessor: (row) => {
+          console.log({ row });
+          return (
+            <img
+              class="rounded-t-lg"
+              src={`${process.env.REACT_APP_IMAGE_URL}/${row?.image_url}`}
+              height={"50px"}
+              width={"50px"}
+              alt=""
+            />
+          );
+        },
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
       <Sidebar />
@@ -14,96 +60,11 @@ export default function WisataUser() {
                 Wisata Saya
               </h2>
               <p class=" text-[#014539] font-normal">
-                Melihat kembali wisata yanf pernah Anda upload
+                Melihat kembali wisata yang pernah Anda upload
               </p>
             </div>
           </div>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-white uppercase bg-[#439A97]">
-                <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Nama Wisata
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Lokasi
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Deskripsi
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Gambar
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Status
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Curug jenggala
-                  </th>
-                  <td class="px-4 py-4">
-                    Jl. Pangeran Limboro, Dusun III Kalipagu, Ketenger, Kec.
-                    Baturaden, Kabupaten Banyumas, Jawa Tengah 53152
-                  </td>
-                  <td class="px-4 py-4">
-                    Curug Jenggala adalah air terjun yang berlokasi di Ketenger,
-                    Baturaden, Banyumas. Air terjun ini memiliki ketinggian 30
-                    meter dari permukaan tanah. Curug ini mempunyai tiga air
-                    terjun yang tingginya sejajar, dengan air terjun yang di
-                    tengah memiliki arus yang paling deras.
-                  </td>
-                  <td class="px-4 py-4">$2999</td>
-                  <td class="px-4 py-4">Aktif</td>
-                  <td class="px-4 py-4">
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Curug jenggala
-                  </th>
-                  <td class="px-4 py-4">
-                    Jl. Pangeran Limboro, Dusun III Kalipagu, Ketenger, Kec.
-                    Baturaden, Kabupaten Banyumas, Jawa Tengah 53152
-                  </td>
-                  <td class="px-4 py-4">
-                    Curug Jenggala adalah air terjun yang berlokasi di Ketenger,
-                    Baturaden, Banyumas. Air terjun ini memiliki ketinggian 30
-                    meter dari permukaan tanah. Curug ini mempunyai tiga air
-                    terjun yang tingginya sejajar, dengan air terjun yang di
-                    tengah memiliki arus yang paling deras.
-                  </td>
-                  <td class="px-4 py-4">$2999</td>
-                  <td class="px-4 py-4">Aktif</td>
-                  <td class="px-4 py-4">
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <DataTable data={data?.docs || []} columns={columns} />
         </div>
       </div>
     </div>

@@ -1,7 +1,63 @@
 import React from "react";
 import Sidebar from "../../components/DashboardAdmin/sidebar";
+import DataTable from "./DataTable";
+import { useMemo } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function UlasanUser() {
+  const [data, setData] = useState();
+
+  const getData = async () => {
+    const result = await axios.get(`${process.env.REACT_APP_API}/ulasan`);
+    setData(result.data.data.docs);
+  };
+
+  const handleDelete = async (id) => {
+    await axios.delete(`${process.env.REACT_APP_API}/ulasan/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    getData();
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Nama",
+        accessor: (row) => {
+          return <>{row?.user?.fullName}</>;
+        },
+      },
+      {
+        Header: "Destinasi",
+        accessor: (row) => {
+          return <>{row?.destinasi?.name}</>;
+        },
+      },
+      {
+        Header: "Ulasan",
+        accessor: "review",
+      },
+      {
+        Header: "Action",
+        accessor: (row) => {
+          return (
+            <span
+              className="text-red-500  hover:underline cursor-pointer"
+              onClick={() => handleDelete(row?._id)}
+            >
+              Hapus
+            </span>
+          );
+        },
+      },
+    ],
+    []
+  );
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <Sidebar />
@@ -18,52 +74,7 @@ export default function UlasanUser() {
               </p>
             </div>
           </div>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-white uppercase bg-[#439A97]">
-                <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Nama
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Ulasan
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    lokasi Wisata
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Nita Fitrotul
-                  </th>
-                  <td class="px-4 py-4">Wahh Bagus</td>
-                  <td class="px-4 py-4">Jenggala</td>
-                  <td class="px-4 py-4">
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Edit
-                    </a>
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <DataTable data={data || []} columns={columns} />
         </div>
       </div>
     </div>

@@ -1,10 +1,64 @@
 import React from "react";
 import Navbars from "../../components/Navigasi/navbar";
 import Footer from "../../components/footer";
-
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import iconUp from "../../assets/iconUpload.svg";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ProcessUpload() {
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      code: "",
+      address: "",
+      description: "",
+      image_url: "",
+    },
+    validationSchema: Yup.object().shape({
+      name: Yup.string().required(),
+      code: Yup.string().required(),
+      address: Yup.string().required(),
+      description: Yup.string(),
+    }),
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+      try {
+        await axios.post(
+          `${process.env.REACT_APP_API}/destinasi`,
+          { ...values, userUpload: localStorage.getItem("id") },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        await axios.post(`${process.env.REACT_APP_API}/reward`, {
+          userUpload: localStorage.getItem("id"),
+          point: 500,
+          // code: generateRandomString(Math.floor(Math.random() * 10) + 1),
+          voucer: 10000,
+        });
+        navigate("/home");
+      } catch (error) {
+        if (error.response) {
+          if (error.response.data.message) {
+            setFieldError("code", error.response.data.message);
+          } else {
+            setFieldError(
+              "code",
+              "Terjadi kesalahan saat mengirim permintaan."
+            );
+          }
+        } else {
+          setFieldError("code", "Tidak dapat terhubung ke server.");
+        }
+      }
+    },
+  });
   return (
     <div>
       <Navbars />
@@ -29,73 +83,117 @@ export default function ProcessUpload() {
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                   <img src={iconUp} alt="" className="mr-3 img-fluid" />
                   <p class="mb-2 text-[#014539] text-2xl font-bold">
-                    Upload Foto
+                    {formik.values.image_url
+                      ? formik.values.image_url?.name
+                      : "Upload Foto"}
                   </p>
                   {/* <p class="text-xs text-gray-500 dark:text-gray-400">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p> */}
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" />
+                <input
+                  id="dropzone-file"
+                  onChange={(e) => {
+                    formik.setFieldValue("image_url", e.currentTarget.files[0]);
+                  }}
+                  type="file"
+                  class="hidden"
+                />
               </label>
             </div>
 
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div class="mb-6">
                 <label
                   htmlFor="email"
                   class="block mb-2 text-sm font-medium text-[#014539]"
                 >
-                  Nama Destinasi
+                  Nama Wisata
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  class="bg-[#DFEBEB] border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400"
-                  placeholder=""
-                  required
+                  id="name"
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.name && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
                 />
+                {formik.errors.name && formik.touched.name && (
+                  <small className="text-red-500">{formik.errors.name}</small>
+                )}
               </div>
               <div class="mb-6">
+                <label
+                  htmlFor="name"
+                  class="block mb-2 text-sm font-medium text-[#014539]"
+                >
+                  Code
+                </label>
+                <input
+                  id="code"
+                  name="code"
+                  value={formik.values.code}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.code && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
+                />
+                {formik.errors.code && formik.touched.code && (
+                  <small className="text-red-500">{formik.errors.code}</small>
+                )}
+              </div>
+              <div class="mb-6">
+                <label
+                  htmlFor="email"
+                  class="block mb-2 text-sm font-medium text-[#014539]"
+                >
+                  Alamat
+                </label>
+                <input
+                  id="address"
+                  name="address"
+                  value={formik.values.address}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.address && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
+                />
+                {formik.errors.address && formik.touched.address && (
+                  <small className="text-red-500">
+                    {formik.errors.address}
+                  </small>
+                )}
+              </div>
+              <div className="mb-6">
                 <label
                   htmlFor="password"
-                  class="block mb-2 text-sm font-medium text-[#014539]"
-                >
-                  Lokasi
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  class="bg-[#DFEBEB] border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400"
-                  required
-                />
-              </div>
-              <div class="w-full mb-4 rounded-lg">
-                <label
-                  htmlFor="email"
-                  class="block mb-2 text-sm font-medium text-[#014539]"
+                  className="block mb-2 text-sm font-medium text-[#014539]"
                 >
                   Deskripsi
                 </label>
-                <div class="px-4 py-2 bg-[#DFEBEB] rounded-2xl ">
-                  {/* <label for="editor" class="sr-only">
-                  Publish post
-                </label> */}
-                  <textarea
-                    id="editor"
-                    rows="8"
-                    class="block w-full px-0 text-sm text-gray-800 bg-[#DFEBEB]"
-                    placeholder=""
-                    required
-                  ></textarea>
-                </div>
+                <textarea
+                  type="description"
+                  id="description"
+                  name="description"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  className={`bg-[#DFEBEB] ${
+                    formik.errors.description && "border-red-500"
+                  } border-none hover:border-none text-gray-900 text-sm rounded-lg block w-full p-4 placeholder-gray-400`}
+                  // required
+                />
               </div>
-              <div class="w-full mt-8 lg:mt-10 mb-32 text-center">
-                <a
-                  href="/finishUpload"
-                  className="mx-auto inline-flex text-center justify-center px-10 py-4 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
+              <div className="flex justify-center border">
+                <button
+                  type="submit"
+                  className="text-white w-6/12 bg-[#439A97] hover:bg-[#014539] font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center mb-10"
                 >
-                  Upload Wisata
-                </a>
+                  Daftar Wisata
+                </button>
               </div>
             </form>
           </div>

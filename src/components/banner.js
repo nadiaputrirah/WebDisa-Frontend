@@ -1,7 +1,7 @@
 import React from "react";
 import bannerhome from "../assets/banners.png";
 
-export default function Banner() {
+export default function Banner({ setSearch }) {
   return (
     <div>
       <section
@@ -30,7 +30,8 @@ export default function Banner() {
                   id="default-search"
                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-white-300 rounded-2xl bg-white-50 focus:ring-white-500 light:bg-white-700 light:border-white-600 dark:placeholder-white-400 light:text-white light:focus:ring-white-500 light:focus:border-white-500"
                   placeholder="Cari Destinasi"
-                  required
+                  // required
+                  onChange={(e) => setSearch(e.target.value)}
                 />
                 <button
                   type="submit"

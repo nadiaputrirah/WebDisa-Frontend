@@ -32,12 +32,17 @@ export default function Visit() {
   };
 
   const handleClickScan = async () => {
-    await axios.post(
+    const result = await axios.post(
       `${process.env.REACT_APP_API}/destinasi/visit`,
       { status: "out", code: data?.code },
       { headers: { Authorization: localStorage.getItem("token") } }
     );
-    navigate("/out");
+    await axios.post(`${process.env.REACT_APP_API}/reward`, {
+      user: localStorage.getItem("id"),
+      point: 100,
+      voucer: 2000,
+    });
+    navigate(`/out/${result.data.data.id}`);
   };
 
   useEffect(() => {

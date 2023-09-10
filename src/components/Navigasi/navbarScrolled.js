@@ -6,13 +6,19 @@ import { usePopper } from "react-popper";
 export default function Navbar({ shouldApplyScrollEffect }) {
   const [navbarTransparent, setNavbarTransparent] = useState(true);
   const [popper, setPopper] = useState(false);
+  const [show, setShow] = useState(false);
   const name = localStorage?.getItem("username");
-
+  const navigate = useNavigate();
+  let link =
+    localStorage.getItem("role") == "admin" ? "/admin" : "/profileUser";
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
     window.location.reload();
   };
+
   useEffect(() => {
     const handleScroll = () => {
       setNavbarTransparent(window.scrollY > 0 ? false : true);
@@ -42,6 +48,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white-500 rounded-lg md:hidden hover:bg-white-100 focus:outline-none focus:ring-2 focus:ring-white-200 dark:text-white-400 dark:hover:bg-white-700 dark:focus:ring-white-600"
             aria-controls="navbar-default"
             aria-expanded="false"
+            onClick={() => setShow(!show)}
           >
             <span class="sr-only">Open main menu</span>
             <svg
@@ -68,7 +75,7 @@ export default function Navbar({ shouldApplyScrollEffect }) {
             >
               <li>
                 <a
-                  href="/"
+                  href="/home"
                   class="block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Beranda
@@ -117,10 +124,13 @@ export default function Navbar({ shouldApplyScrollEffect }) {
                   <div
                     className={`${
                       popper ? "inline-block" : "hidden"
-                    } absolute z-10 invisible transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 `}
+                    } absolute z-10  transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm  `}
                   >
-                    <div className="cursor-pointer px-3 py-2">
-                      <a>Dashboard</a>
+                    <div
+                      className="cursor-pointer px-3 py-2 "
+                      onClick={() => navigate(link)}
+                    >
+                      Dashboard
                     </div>
                     <div
                       className="cursor-pointer px-3 py-2"
@@ -145,6 +155,60 @@ export default function Navbar({ shouldApplyScrollEffect }) {
           </div>
         </div>
       </nav>
+
+      {show && (
+        <div
+          className={`md:hidden fixed z-10 mt-16  transition-all   text-sm text-gray-500  duration-300 bg-white border border-gray-200 w-full shadow-sm  `}
+          style={{
+            marginTop: "68px",
+            backgroundColor: "#439A97",
+            color: "white",
+          }}
+        >
+          <div
+            className="cursor-pointer px-3 text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/home")}
+          >
+            Beranda
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/info")}
+          >
+            Informasi
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/populer")}
+          >
+            Destinasi
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/berbagi")}
+          >
+            Berbagi
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/scan")}
+          >
+            Scan Qr
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={handleLogout}
+          >
+            <span>Logout</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

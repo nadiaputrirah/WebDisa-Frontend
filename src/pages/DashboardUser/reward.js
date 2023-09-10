@@ -1,7 +1,87 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/DashboardUser/sidebar";
+import axios from "axios";
+import DataTable from "../DashboardAdmin/DataTable";
 
 export default function Reward() {
+  const [data, setData] = useState();
+
+  const getData = async () => {
+    const result = await axios.get(
+      `${process.env.REACT_APP_API}/reward?id=${localStorage.getItem("id")}`,
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+    setData(result.data.data.docs);
+  };
+  function generateRandomString(length) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return Array.from(
+      { length },
+      () => characters[Math.floor(Math.random() * characters.length)]
+    ).join("");
+  }
+
+  const handleDelete = async (row) => {
+    await axios.put(
+      `${process.env.REACT_APP_API}/reward/${row?._id}`,
+      {
+        user: row.user._id,
+        point: 0,
+        voucer: 0,
+        code: generateRandomString(Math.floor(Math.random() * 10) + 1),
+      },
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+    getData();
+  };
+
+  let totalPoint = 0;
+
+  data?.map((val) => (totalPoint += val?.point));
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Voucher",
+        accessor: (row) => {
+          return <>{row?.voucer}</>;
+        },
+      },
+      {
+        Header: "Point",
+        accessor: (row) => {
+          return <>{row?.point}</>;
+        },
+      },
+      {
+        Header: "Code",
+        accessor: "code",
+      },
+      {
+        Header: "Action",
+        accessor: (row) => {
+          console.log({ row });
+          return (
+            <span
+              className="text-red-500  hover:underline cursor-pointer"
+              onClick={() => handleDelete(row)}
+            >
+              Claim
+            </span>
+          );
+        },
+      },
+    ],
+    []
+  );
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <Sidebar />
@@ -21,49 +101,12 @@ export default function Reward() {
           <div class="lg:grid-cols-2">
             <div class="relative overflow-x-auto p-4 mb-10 shadow-md sm:rounded-lg">
               <h2 class="mb-4 text-md font-bold text-[#439A97]">Poin Saya</h2>
-              <h2 class="mb-4 text-4xl font-bold text-[#014539]">1.000</h2>
+              <h2 class="mb-4 text-4xl font-bold text-[#014539]">
+                {totalPoint}
+              </h2>
             </div>
           </div>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-white uppercase bg-[#439A97]">
-                <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Voucher
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Poin
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Action
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Kode
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white border-b dark:border-gray-700 text-[#014539]">
-                  <th
-                    scope="row"
-                    class="px-4 py-4 font-medium whitespace-nowrap"
-                  >
-                    Rp 10.000,00
-                  </th>
-                  <td class="px-4 py-4">1.000</td>
-                  <td class="px-4 py-4">
-                    <a
-                      href="/"
-                      class="font-medium text-[#014539] hover:underline"
-                    >
-                      Claim
-                    </a>
-                  </td>
-                  <td class="px-4 py-4">54362</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <DataTable data={data || []} columns={columns} />
         </div>
       </div>
     </div>
