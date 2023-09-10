@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-key": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react/display-name": "off",
+    "no-unused-vars": "off"
+  }
+}

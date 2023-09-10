@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/logodisa.svg";
-import { usePopper } from "react-popper";
 
-export default function Navbar({ shouldApplyScrollEffect }) {
+export default function Navbar() {
   const [navbarTransparent, setNavbarTransparent] = useState(true);
   const [popper, setPopper] = useState(false);
   const [show, setShow] = useState(false);
