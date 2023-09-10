@@ -142,7 +142,6 @@ export default function Navbar({ shouldApplyScrollEffect }) {
                 </li>
               ) : (
                 <li>
-                  {/* <redirect to="/" replace={true} /> */}
                   <a
                     href="/login"
                     class="text-[#439A97] bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
