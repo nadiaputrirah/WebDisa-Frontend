@@ -85,7 +85,7 @@ export default function Admin() {
                 className="text-green-500 mr-3 hover:underline cursor-pointer"
                 onClick={() => {
                   props.setOpenModal("dismissible");
-                  setShow(row?._id);
+                  setShow(row?.id);
                   formik.setFieldValue("email", row.email);
                   formik.setFieldValue("fullName", row.fullName);
                   formik.setFieldValue("password", row.password);
