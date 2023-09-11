@@ -8,16 +8,16 @@ import MapComponent from "../../components/Populer/map";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-// import gallery1 from "../../assets/galleryJenggala/img1.svg";
-// import gallery2 from "../../assets/galleryJenggala/img2.svg";
-// import gallery3 from "../../assets/galleryJenggala/img3.svg";
-// import gallery4 from "../../assets/galleryJenggala/img4.svg";
-// import gallery5 from "../../assets/galleryJenggala/img5.svg";
-// import gallery6 from "../../assets/galleryJenggala/img6.svg";
-// import gallery7 from "../../assets/galleryJenggala/img7.svg";
-// import gallery8 from "../../assets/galleryJenggala/img8.svg";
-// import gallery9 from "../../assets/galleryJenggala/img9.svg";
-// import gallery10 from "../../assets/galleryJenggala/img10.svg";
+import gallery1 from "../../assets/galleryJenggala/img1.svg";
+import gallery2 from "../../assets/galleryJenggala/img2.svg";
+import gallery3 from "../../assets/galleryJenggala/img3.svg";
+import gallery4 from "../../assets/galleryJenggala/img4.svg";
+import gallery5 from "../../assets/galleryJenggala/img5.svg";
+import gallery6 from "../../assets/galleryJenggala/img6.svg";
+import gallery7 from "../../assets/galleryJenggala/img7.svg";
+import gallery8 from "../../assets/galleryJenggala/img8.svg";
+import gallery9 from "../../assets/galleryJenggala/img9.svg";
+import gallery10 from "../../assets/galleryJenggala/img10.svg";
 
 export default function DetailWisata() {
   const [data, setData] = useState();
@@ -96,7 +96,7 @@ export default function DetailWisata() {
         </div>
       </section>
 
-      {/* <section class="bg-white">
+      <section class="bg-white">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div class="w-full mb-8 lg:mb-10 text-center">
             <h2 class="mb-10 text-4xl font-medium text-[#439A97] ">
@@ -240,7 +240,7 @@ export default function DetailWisata() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
       <Footer />
     </div>
   );
