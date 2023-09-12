@@ -12,7 +12,7 @@ import axios from "axios";
 export default function PageScan() {
   const param = useParams();
   const navigate = useNavigate();
-  const [delay, setDelay] = useState(100);
+  const [delay, setDelay] = useState(500);
   const [result, setResult] = useState("No result");
 
   const [selected, setSelected] = useState("environment");
@@ -61,7 +61,7 @@ export default function PageScan() {
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
-          constraints={ {facingmode: 'environment'} }
+          facingmode= {selected}
           />
         
       </div>
