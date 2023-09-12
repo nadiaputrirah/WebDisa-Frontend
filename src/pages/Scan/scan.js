@@ -54,6 +54,7 @@ export default function PageScan() {
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
+          facingMode="environment"
         />
       </div>
       <p className="text-center text-[#439A97] mt-10 text-lg">
