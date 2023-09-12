@@ -5,7 +5,7 @@ import Navbars from "../../components/Navigasi/navbar";
 import Footer from "../../components/footer";
 import Scanner from "../../components/scanner";
 import { useNavigate, useParams } from "react-router-dom";
-import QrReader from "react-qr";
+import QrReader from "react-qr-scanner";
 import { useState } from "react";
 import axios from "axios";
 
