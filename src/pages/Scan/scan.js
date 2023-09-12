@@ -5,14 +5,14 @@ import Navbars from "../../components/Navigasi/navbar";
 import Footer from "../../components/footer";
 import Scanner from "../../components/scanner";
 import { useNavigate, useParams } from "react-router-dom";
-import QrReader from "react-qr-scanner";
+import QrReader from "react-qr";
 import { useState } from "react";
 import axios from "axios";
 
 export default function PageScan() {
   const param = useParams();
   const navigate = useNavigate();
-  const [delay, setDelay] = useState(500);
+  const [delay, setDelay] = useState(100);
   const [result, setResult] = useState("No result");
 
   const [selected, setSelected] = useState("environment");
@@ -57,12 +57,13 @@ export default function PageScan() {
 
           </select>
         <QrReader
-          delay={delay}
+          delay={500}
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
-          facingmode= {selected}
-          />
+          // facingMode={selected}
+          constraints={{ video: { facingMode: selected } }}
+        />
         
       </div>
       <p className="text-center text-[#439A97] mt-10 text-lg">

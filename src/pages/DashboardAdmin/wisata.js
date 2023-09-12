@@ -179,7 +179,7 @@ export default function WisataAdmin() {
     <div>
       <Sidebar />
 
-      <div class="p-4 sm:ml-64">
+      <div class="p-4 sm:ml-64 bg-white">
         <div class="p-4">
           <div class="py-8 px-4 max-w-screen-xl sm:py-16 lg:px-6">
             <div class="w-full space-y-10 md:gap-12 md:space-y-0">
@@ -213,8 +213,8 @@ export default function WisataAdmin() {
           >
             <Modal.Header>Form Wisata</Modal.Header>
             <Modal.Body>
-              <form onSubmit={formik.handleSubmit}>
-                <div class="mb-6 bg-white">
+              <form class="bg-white" onSubmit={formik.handleSubmit}>
+                <div class="mb-6">
                   <label
                     htmlFor="email"
                     class="block mb-2 text-sm font-medium text-[#014539]"
