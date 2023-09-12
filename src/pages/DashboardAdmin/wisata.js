@@ -214,7 +214,7 @@ export default function WisataAdmin() {
             <Modal.Header>Form Wisata</Modal.Header>
             <Modal.Body>
               <form onSubmit={formik.handleSubmit}>
-                <div class="mb-6">
+                <div class="mb-6 bg-white">
                   <label
                     htmlFor="email"
                     class="block mb-2 text-sm font-medium text-[#014539]"

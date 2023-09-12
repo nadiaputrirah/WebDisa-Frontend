@@ -18,12 +18,13 @@ export default function FinishUpload() {
             Untuk informasi lebih lanjut silakan cek secara berkala dengan
             mengklik tombol di bawah.
           </p>
-          <button
+          <a
+          href="/wisataUser"
             type="submit"
             class="inline-flex px-5 py-2.5 text-sm font-medium text-center text-white bg-[#439A97] rounded-lg"
           >
             Wisata Saya
-          </button>
+          </a>
         </div>
       </div>
 

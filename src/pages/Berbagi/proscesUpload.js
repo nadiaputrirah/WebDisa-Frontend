@@ -42,7 +42,7 @@ export default function ProcessUpload() {
           // code: generateRandomString(Math.floor(Math.random() * 10) + 1),
           voucer: 10000,
         });
-        navigate("/home");
+        navigate("/finishUpload");
       } catch (error) {
         if (error.response) {
           if (error.response.data.message) {

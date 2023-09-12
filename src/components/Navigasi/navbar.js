@@ -182,6 +182,13 @@ export default function Navbars() {
             Scan Qr
           </div>
           <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate(link)}
+          >
+            {name}
+          </div>
+          <div
             className="cursor-pointer px-3  text-center "
             style={{ paddingTop: "20px", paddingBottom: "20px" }}
             onClick={handleLogout}
