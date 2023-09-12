@@ -51,18 +51,18 @@ export default function PageScan() {
       <Navbars />
       <Scan />
       <div class=" w-full mx-auto max-w-screen-xl flex justify-center items-center">
-      <select onChange={(e) => setSelected(e.target.value)}>
+      {/* <select onChange={(e) => setSelected(e.target.value)}>
             <option value={"environment"}>Back Camera</option>
             <option value={"user"}>Front Camera</option>
 
-          </select>
+          </select> */}
         <QrReader
           delay={500}
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
           // facingMode={selected}
-          constraints={{ video: { facingMode: selected } }}
+          constraints={{ video: { facingMode: "environment" } }}
         />
         
       </div>
