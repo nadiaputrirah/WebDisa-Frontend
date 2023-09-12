@@ -51,12 +51,12 @@ export default function Footer() {
                 <ul class="text-white font-normal">
                   <li class="mb-4">
                     <a href="https://flowbite.com/" class="hover:underline">
-                      Tentang Disa
+                      Tentang Kami
                     </a>
                   </li>
                   <li>
                     <a href="https://tailwindcss.com/" class="hover:underline">
-                      Kontak
+                      Hubungi Kami
                     </a>
                   </li>
                 </ul>
@@ -71,7 +71,7 @@ export default function Footer() {
                       href="https://github.com/themesberg/flowbite"
                       class="hover:underline "
                     >
-                      Kenapa Disa
+                      Syarat Penggunaan
                     </a>
                   </li>
                   <li>
@@ -79,29 +79,39 @@ export default function Footer() {
                       href="https://discord.gg/4eeurUVvTy"
                       class="hover:underline"
                     >
-                      Keamanan
+                      Partnership
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
                 <h2 class="mb-6 text-sm font-extrabold text-white uppercase">
-                  Explorer
+                  Jelajah
                 </h2>
                 <ul class="text-white font-normal">
                   <li class="mb-4">
                     <a href="/" class="hover:underline">
-                      Wisata alam
+                    Banjarnegara
                     </a>
                   </li>
                   <li class="mb-4">
                     <a href="/" class="hover:underline">
-                      Wisata Air
+                      Purbalingga
                     </a>
                   </li>
-                  <li>
+                  <li class="mb-4">
                     <a href="/" class="hover:underline">
-                      Wisata Pegunungan
+                      Banyumas
+                    </a>
+                  </li>
+                  <li class="mb-4">
+                    <a href="/" class="hover:underline">
+                      Cilacap
+                    </a>
+                  </li>
+                  <li class="mb-4">
+                    <a href="/" class="hover:underline">
+                      Kebumen
                     </a>
                   </li>
                 </ul>

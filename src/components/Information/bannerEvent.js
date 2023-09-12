@@ -17,7 +17,7 @@ export default function BannerEvent() {
             baru.
           </p>
           <div className="flex space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 mt-8">
-            <form className="w-full sm:w-1/2 md:w-1/3 lg:w-1/8 xl:w-1/8">
+            {/* <form className="w-full sm:w-1/2 md:w-1/3 lg:w-1/8 xl:w-1/8">
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-[#439A97] sr-only light:text-[#439A97]"
@@ -53,7 +53,7 @@ export default function BannerEvent() {
                   </svg>
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       </section>

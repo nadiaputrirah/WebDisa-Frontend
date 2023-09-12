@@ -4,6 +4,7 @@ import Footer from "../../components/footer";
 import Navbar from "../../components/Navigasi/navbarScrolled";
 import indikator from "../../assets/indikatorPadat.png";
 import BannerDestinasi from "../../components/Populer/banner";
+import Map from "../../assets/maps.png";
 import MapComponent from "../../components/Populer/map";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -69,7 +70,7 @@ export default function DetailWisata() {
 
           <img
             src={indikator}
-            class="w-full items-center mb-4"
+            class="rounded-t-lg"
             alt="Info Logo"
           />
         </div>
@@ -77,7 +78,13 @@ export default function DetailWisata() {
 
       <section class="bg-white">
         <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-          <MapComponent />
+        <div>
+          <img
+            class="h-auto max-w-full rounded-lg"
+            src={Map}
+            alt=""
+          />
+        </div>
 
           <div className="mt-4 md:mt-0">
             <h2 className="mb-6 text-3xl font-medium text-[#439A97]">
