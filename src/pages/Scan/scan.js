@@ -15,6 +15,8 @@ export default function PageScan() {
   const [delay, setDelay] = useState(100);
   const [result, setResult] = useState("No result");
 
+  const [selected, setSelected] = useState("environment");
+
   const handleScan = (data) => {
     // console.log(data);
     if (data) {
@@ -49,12 +51,17 @@ export default function PageScan() {
       <Navbars />
       <Scan />
       <div class=" w-full mx-auto max-w-screen-xl flex justify-center items-center">
+      <select onChange={(e) => setSelected(e.target.value)}>
+            <option value={"environment"}>Back Camera</option>
+            <option value={"user"}>Front Camera</option>
+          </select>
+          {selected}
         <QrReader
           delay={delay}
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
-          facingMode="environment"
+          facingMode={selected}
         />
       </div>
       <p className="text-center text-[#439A97] mt-10 text-lg">
