@@ -54,15 +54,16 @@ export default function PageScan() {
       <select onChange={(e) => setSelected(e.target.value)}>
             <option value={"environment"}>Back Camera</option>
             <option value={"user"}>Front Camera</option>
+
           </select>
-          {selected}
         <QrReader
           delay={delay}
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
-          facingMode={selected}
-        />
+          constraints={ {facingmode: 'environment'} }
+          />
+        
       </div>
       <p className="text-center text-[#439A97] mt-10 text-lg">
         Hasil Scan : {result}
