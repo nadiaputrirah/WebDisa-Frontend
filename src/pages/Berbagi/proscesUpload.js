@@ -187,7 +187,7 @@ export default function ProcessUpload() {
                   // required
                 />
               </div>
-              <div className="flex justify-center border">
+              <div className="flex justify-center">
                 <button
                   type="submit"
                   className="text-white w-6/12 bg-[#439A97] hover:bg-[#014539] font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center mb-10"

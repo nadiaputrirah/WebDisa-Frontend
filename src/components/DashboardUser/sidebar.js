@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from "../../assets/logodisa.svg";
 import profile from "../../assets/profile.svg";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 export default function Sidebar() {
   const navigate = useNavigate();
+  const name = localStorage?.getItem("username");
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -13,6 +14,10 @@ export default function Sidebar() {
     localStorage.removeItem("role");
     window.location.reload();
   };
+
+  const [show, setShow] = useState(false);
+  let link =
+    localStorage.getItem("role") == "admin" ? "/admin" : "/profileUser";
 
   useEffect(() => {
     if (localStorage.getItem("role") != "user") {
@@ -30,6 +35,7 @@ export default function Sidebar() {
                 data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar"
                 type="button"
+                onClick={()=>setShow(!show)}
                 class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
                 <span class="sr-only">Open sidebar</span>
@@ -235,6 +241,53 @@ export default function Sidebar() {
           </ul>
         </div>
       </aside>
+
+      {show && (
+        <div
+          className={`md:hidden fixed z-10 mt-16  transition-all   text-sm text-gray-500  duration-300 bg-white border border-gray-200 w-full shadow-sm  `}
+          style={{
+            marginTop: "68px",
+            backgroundColor: "#439A97",
+            color: "white",
+          }}
+        >
+          <div
+            className="cursor-pointer px-3 text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/admin")}
+          >
+            User
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/wisataAdmin")}
+          >
+            Wisata
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate("/ulasanUser")}
+          >
+            Ulasan
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate(link)}
+          >
+            {name}
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={handleLogout}
+          >
+            <span>Logout</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

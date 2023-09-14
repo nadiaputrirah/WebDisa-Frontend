@@ -73,7 +73,7 @@ export default function Visit() {
             onClick={handleClickScan}
             className="mx-auto mt-10 inline-flex justify-center px-10 py-4 text-md font-medium text-white bg-[#439A97] hover:bg-[#2b928e] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#2b928e]"
           >
-            Scan Untuk Keluar
+            Keluar Tempat Wisata
           </button>
         </div>
       </div>

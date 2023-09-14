@@ -94,34 +94,22 @@ export default function Navbars() {
                   Scan QR
                 </a>
               </li>
-              {name ? (
-                <li className="relative " onClick={() => setPopper(!popper)}>
-                  <span
-                    // href="#berbagi"
-                    className="cursor-pointer block py-2 pl-3 pr-4 rounded hover:bg-white-700 md:hover:bg-transparent md:border-0 md:hover:text-white-700 md:p-0 dark:text-white md:dark:hover:text-white-500 dark:hover:bg-white-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  >
-                    {name && `Hai ${name}`}
-                  </span>
-                  <div
-                    className={`${
-                      popper ? "inline-block" : "hidden"
-                    } absolute z-10  transition-all  w-64 text-sm text-gray-500  duration-300 bg-white border border-gray-200 rounded-lg shadow-sm  `}
-                  >
-                    <div
-                      className="cursor-pointer  px-3 py-2"
-                      onClick={() => navigate(link)}
-                    >
-                      Dashboard
-                    </div>
-                    <div
-                      className="cursor-pointer px-3 py-2"
-                      onClick={handleLogout}
-                    >
-                      <span>Logout</span>
-                    </div>
-                  </div>
-                </li>
-              ) : (
+              {name? <div>
+            <div
+            className="cursor-pointer px-3  text-center  "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={() => navigate(link)}
+          >
+            {name}
+          </div>
+          <div
+            className="cursor-pointer px-3  text-center "
+            style={{ paddingTop: "20px", paddingBottom: "20px" }}
+            onClick={handleLogout}
+          >
+            <span>Logout</span>
+          </div>
+          </div>: (
                 <li>
                   {/* <redirect to="/" replace={true} /> */}
                   <a
